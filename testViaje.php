@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 include_once("Viaje.php");
 include_once("ResponsableV.php");
@@ -16,6 +17,12 @@ $vuelo->agregarPasajero("Pedro", "Rodriguez", "34567890", "555-9012");
 $vuelo->agregarPasajero("Ana", "Lopez", "45678901", "555-3456");
 $vuelo->agregarPasajero("Luis", "Garcia", "56789012", "555-6789");
 
+=======
+require_once('Viaje.php');
+
+// Creamos un objeto Viaje con valores iniciales
+$vuelo = new Viaje('001', 'Buenos Aires', 5);
+>>>>>>> b278b80f4082786e5d01e2ae99bfd8abdb8afd17
 
 // Menú principal
 while (true) {
@@ -23,9 +30,14 @@ while (true) {
     echo "1. Agregar pasajero\n";
     echo "2. Eliminar pasajero\n";
     echo "3. Modificar pasajero\n";
+<<<<<<< HEAD
     echo "4. Agregar un responsable\n";
     echo "5. Mostrar información del vuelo\n";
     echo "6. Salir\n\n";
+=======
+    echo "4. Mostrar información del vuelo\n";
+    echo "5. Salir\n\n";
+>>>>>>> b278b80f4082786e5d01e2ae99bfd8abdb8afd17
     $opcion = readline("Ingrese una opción: ");
 
     switch ($opcion) {
@@ -33,8 +45,12 @@ while (true) {
             $nombre = readline("Ingrese el nombre del pasajero: ");
             $apellido = readline("Ingrese el apellido del pasajero: ");
             $dni = readline("Ingrese el DNI del pasajero: ");
+<<<<<<< HEAD
             $telefono =readline("Ingrese el telefono del pasajero: ");
             if ($vuelo->agregarPasajero($nombre, $apellido, $dni, $telefono)) {
+=======
+            if ($vuelo->agregarPasajero($nombre, $apellido, $dni)) {
+>>>>>>> b278b80f4082786e5d01e2ae99bfd8abdb8afd17
                 echo "El pasajero ha sido agregado al vuelo.\n";
             } else {
                 echo "No se pudo agregar al pasajero. Se supero la cantidad maxima permitida de este vuelo o intentó agregar un pasajero que ya está en este vuelo.\n";
@@ -52,14 +68,19 @@ while (true) {
             $dni = readline("Ingrese el DNI del pasajero a modificar: ");
             $nombre = readline("Ingrese el nuevo nombre del pasajero: ");
             $apellido = readline("Ingrese el nuevo apellido del pasajero: ");
+<<<<<<< HEAD
             $telefono = readline("Ingrese el nuevo telefono del pasajero: ");
             if ($vuelo->modificarPasajero($dni, $nombre, $apellido, $telefono)) {
+=======
+            if ($vuelo->modificarPasajero($dni, $nombre, $apellido)) {
+>>>>>>> b278b80f4082786e5d01e2ae99bfd8abdb8afd17
                 echo "El pasajero ha sido modificado en el vuelo.\n";
             } else {
                 echo "No se pudo modificar al pasajero en el vuelo. No se encontró un pasajero con el DNI ingresado.\n";
             }
             break;
         case 4:
+<<<<<<< HEAD
             $nombre = readline("Ingrese el nombre del responsable: ");
             $apellido = readline("Ingrese el apellido del responsable: ");
             $nroLicencia = readline("Ingrese el N° de licencia del responsable: ");
@@ -74,10 +95,19 @@ while (true) {
             echo $vuelo;
             break;
         case 6:
+=======
+            echo $vuelo;
+            break;
+        case 5:
+>>>>>>> b278b80f4082786e5d01e2ae99bfd8abdb8afd17
             exit();
         default:
             echo "Opción inválida. Por favor, intente nuevamente.\n";
     }
 
     readline("Presione Enter para continuar...");
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> b278b80f4082786e5d01e2ae99bfd8abdb8afd17
