@@ -15,12 +15,14 @@ class Viaje {
     private $cantMaxPasajeros;
     private $colPasajeros;
     private $responsableV;
+    private $costo;
 
-    public function __construct($codigo, $destino, $cantMaxPasajeros, $unResponsable){
+    public function __construct($codigo, $destino, $cantMaxPasajeros, $unResponsable, $costo){
         $this->codigo = $codigo;
         $this->destino = $destino;
         $this->cantMaxPasajeros = $cantMaxPasajeros;
         $this->responsableV = $unResponsable;
+        $this->costo = $costo;
         $this->colPasajeros = array();
     }
     
@@ -43,6 +45,10 @@ class Viaje {
     public function getResponsable(){
     return $this->responsableV;
     }
+
+    public function getCosto(){
+        return $this->costo;
+    }
     
     public function setCodigo($codigo){
         $this->codigo = $codigo;
@@ -63,7 +69,10 @@ class Viaje {
     public function setResponsable($responsable){
         $this->responsableV = $responsable;
     }
-    
+
+    public function setCosto($costo){
+        $this->costo = $costo;
+    } 
     
     public function agregarResponsable($nombre, $apellido, $nroLicencia, $nroEmpleado){
         $exito = false;
@@ -77,7 +86,7 @@ class Viaje {
         return $exito;
     }
     
-    public function agregarPasajero($nombre, $apellido, $numDoc, $telefono){
+    public function agregarPasajero($nombre, $apellido, $numDoc, $telefono, $nroAsiento, $nroTicket){
         $exito = false;
         $colPasajeros = $this->getColPasajeros();
         $cantMax = $this->getCantMaxPasajeros();
@@ -97,7 +106,7 @@ class Viaje {
           }
                 if(!$existePasajero){
                 /* No existe un pasajero con el mismo número de documento, puedo agregar al nuevo pasajero. */
-                $nuevoPasajero = new Pasajero($nombre, $apellido, $numDoc, $telefono); // Creo una instancia del objeto Pasajero
+                $nuevoPasajero = new Pasajero($nombre, $apellido, $numDoc, $telefono, $nroAsiento, $nroTicket); // Creo una instancia del objeto Pasajero
                 $this->colPasajeros[] = $nuevoPasajero; // Agrego la instancia a la coleccion
                 $exito = true;
         }
@@ -146,6 +155,58 @@ class Viaje {
     }
     return $exito;
     }
+
+ 
+    /* Modificar la clase viaje para almacenar el costo del viaje, la suma de los costos abonados por los pasajeros 
+    e implementar el método venderPasaje($objPasajero) que debe incorporar el pasajero a la colección de pasajeros (solo si hay espacio
+    disponible), actualizar los costos abonados y retornar el costo final que deberá ser abonado por el pasajero.*/
+
+    public function venderPasaje($objPasajero){
+        $colPasajeros = $this->getColPasajeros();
+        $cantMax = $this->getCantMaxPasajeros();
+        $cantActual = count($colPasajeros);
+        $i = 0;
+        $numDoc = $objPasajero->getnroDocumento();
+        $costo = $this->getCosto();
+        $costoTotal = 0;
+        $costoFinal = 0;
+
+        if($cantActual < $cantMax){
+        /* Aun no se supera cantMax de pasajeros, puedo vender un pasaje. */
+         $existePasajero = false;
+          while($i < $cantActual && !$existePasajero){
+              $numDocumento = $colPasajeros[$i]->getnroDocumento();
+             if($numDocumento == $numDoc){
+                /* Ya existe un pasajero con el mismo número de documento, no se pueden vender 2 pasaje con el mismo numDoc. */
+                 $existePasajero = true;
+             }
+             $i++;
+          }
+                if(!$existePasajero){
+                /* No existe un pasajero con el mismo número de documento, puedo vender el pasaje */
+                $this->colPasajeros[] = $objPasajero; // Agrego la instancia a la coleccion
+                $costoTotal = $costo * $cantActual;
+                $costoFinal += $costoTotal;
+        }
+    }
+    return $costoFinal;
+}
+
+    /* Implemente la función hayPasajesDisponible() que retorna verdadero si la cantidad de pasajeros 
+    del viaje es menor a la cantidad máxima de pasajeros y falso caso contrario */
+    
+    public function hayPasajesDisponible(){
+        $colPasajeros = $this->getColPasajeros();
+        $cantMax = $this->getCantMaxPasajeros();
+        $cantActual = count($colPasajeros);
+        $hayPasajes = false;
+
+        if($cantActual < $cantMax){
+            $hayPasajes = true;
+        }
+        return $hayPasajes;
+    }
+
     
     public function __toString() {
     $str = "Viaje: ".$this->getDestino()." ".$this->getCodigo()."\n";

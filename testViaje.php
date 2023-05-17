@@ -7,14 +7,14 @@ include_once("Pasajero.php");
 $responsable = new ResponsableV('Will', 'Smith', '00123', '2256');
 
 // Creamos un objeto Viaje con valores iniciales
-$vuelo = new Viaje('001', 'Buenos Aires', 6, $responsable);
+$vuelo = new Viaje('001', 'Buenos Aires', 6, $responsable, 1000);
 
 //Agregamos 5 pasajeros al vuelo
-$vuelo->agregarPasajero("Juan", "Perez", "12345678", "555-1234");
-$vuelo->agregarPasajero("Maria", "Gomez", "23456789", "555-5678");
-$vuelo->agregarPasajero("Pedro", "Rodriguez", "34567890", "555-9012");
-$vuelo->agregarPasajero("Ana", "Lopez", "45678901", "555-3456");
-$vuelo->agregarPasajero("Luis", "Garcia", "56789012", "555-6789");
+$vuelo->agregarPasajero("Juan", "Perez", "12345678", "555-1234", 1, 1);
+$vuelo->agregarPasajero("Maria", "Gomez", "23456789", "555-5678", 2, 2);
+$vuelo->agregarPasajero("Pedro", "Rodriguez", "34567890", "555-9012", 3, 3);
+$vuelo->agregarPasajero("Ana", "Lopez", "45678901", "555-3456", 4, 4);
+$vuelo->agregarPasajero("Luis", "Garcia", "56789012", "555-6789", 5, 5);
 
 
 // Menú principal
@@ -34,7 +34,9 @@ while (true) {
             $apellido = readline("Ingrese el apellido del pasajero: ");
             $dni = readline("Ingrese el DNI del pasajero: ");
             $telefono =readline("Ingrese el telefono del pasajero: ");
-            if ($vuelo->agregarPasajero($nombre, $apellido, $dni, $telefono)) {
+            $nroAsiento = readline("Ingrese el numero de asiento del pasajero: ");
+            $nroTicket = readline("Ingrese el numero de ticket del pasajero: ");
+            if ($vuelo->agregarPasajero($nombre, $apellido, $dni, $telefono, $nroAsiento, $nroTicket)) {
                 echo "El pasajero ha sido agregado al vuelo.\n";
             } else {
                 echo "No se pudo agregar al pasajero. Se supero la cantidad maxima permitida de este vuelo o intentó agregar un pasajero que ya está en este vuelo.\n";
